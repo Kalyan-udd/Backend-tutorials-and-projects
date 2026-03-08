@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width="device-width, initial-scale=1.0">
+    <title>Gemini Beta ChatBot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+    <div id="chat-container">
+        <div id="chat-box"></div>
+    </div>
+
+    <div class="input-group">
+        <input type="text" id="user-input" placeholder="Ask me about Beta's projects...">
+        <button class="btn-primary" onclick="sendMessage()">></button>
+    </div>
+    </div>
+   <script>
+    async function sendMessage() {
+        const inputField = document.getElementById("user-input");
+        const chatBox = document.getElementById("chat-box");
+        const message = inputField.value;
+        if (!message) return;
+
+        // Display user message
+        chatBox.innerHTML += `<p><strong>You:</strong> ${message}</p>`;
+        inputField.value = "";
+
+        // Send to Flask backend
+        const response = await fetch("/ChatBot", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: message })
+        });
+        
+        const data = await response.json();
+        
+        // Display Bot message
+        chatBox.innerHTML += `<p><strong>Gemini:</strong> ${data.reply}</p>`;
+        
+        // Auto-scroll to bottom
+        const container = document.getElementById("chat-container");
+        container.scrollTop = container.scrollHeight;
+    }
+
+    // --- NEW: Add this part below to enable the Enter key ---
+    document.getElementById("user-input").addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault(); // Prevents page refresh or double-sending
+            sendMessage();
+        }
+    });
+    </script>
+</body>
+</html>

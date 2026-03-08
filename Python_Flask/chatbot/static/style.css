@@ -1,0 +1,132 @@
+/* 1. Global Reset & Dark Mode Background */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #1a1b26; /* Deep dark background for Arch Linux aesthetic */
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* 2. Main Container holding everything */
+.container {
+    width: 95%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Space between the chat box and the input */
+}
+
+/* 3. The Scrollable Chat Box (Your Teal Design) */
+#chat-container {
+    height: 500px;
+    background-color: #263a39; /* Your original Teal color */
+    border-radius: 20px;
+    padding: 20px;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 2px solid #bbf9f5;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 4. Message Bubble Styling */
+#chat-box p {
+    margin-bottom: 12px;
+    padding: 10px 15px;
+    border-radius: 15px;
+    max-width: 85%;
+    line-height: 1.5;
+    font-size: 15px;
+    word-wrap: break-word;
+}
+
+/* User Message Styling */
+p strong:contains("You") {
+    display: block;
+    margin-bottom: 3px;
+    color: #ffffff;
+}
+
+#chat-box p:has(strong:contains("You")) {
+    background-color: #ffffff;
+    align-self: flex-end;
+    border-bottom-right-radius: 2px;
+    color: #ffffff;
+}
+
+/* Gemini Message Styling */
+#chat-box p:has(strong:contains("Gemini")) {
+    background-color: #2b3a39; /* Darker teal for the Bot */
+    color: #fdfdfd;
+    align-self: flex-start;
+    border-bottom-left-radius: 2px;
+}
+
+/* 5. The Input Area (Positioned Below) */
+.input-group {
+    display: flex;
+    align-items: center;
+    background: #24283b;
+    padding: 8px;
+    border-radius: 30px;
+    border: 1px solid #414868;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+#user-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    font-size: 16px;
+    outline: none;
+}
+
+#user-input::placeholder {
+    color: #565f89;
+}
+
+/* 6. The Circular Send Button */
+.btn-primary {
+    background-color: #50e0d6;
+    color: #1a1b26;
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #ffffff;
+    transform: scale(1.05);
+}
+
+/* 7. Scrollbar Styling (So it looks good on Arch) */
+#chat-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+#chat-container::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+#chat-container::-webkit-scrollbar-thumb {
+    background: #3bbbb2;
+    border-radius: 10px;
+}
+
